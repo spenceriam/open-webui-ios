@@ -1,6 +1,5 @@
 # Open WebUI iOS 📱
 
-[![Discord](https://img.shields.io/badge/Discord-Open_WebUI-blue?logo=discord&logoColor=white)](https://discord.gg/5rJgQTnV4s)
 ![iOS](https://img.shields.io/badge/Platform-iOS%2016.0+-lightgrey)
 ![Status](https://img.shields.io/badge/Status-Alpha%200.2.0-yellow)
 ![Language](https://img.shields.io/badge/Language-Swift-orange)
@@ -135,11 +134,6 @@ This project uses the original [Open WebUI](https://github.com/open-webui/open-w
 ## License 📜
 
 This project is licensed under the [Open WebUI License](open-webui_docs/LICENSE), a revised BSD-3-Clause license.
-
-## Support 💬
-
-If you have any questions, suggestions, or need assistance, please open an issue or join the
-[Open WebUI Discord community](https://discord.gg/5rJgQTnV4s) to connect with us! 🤝
 
 ---
 
