@@ -81,7 +81,15 @@ struct SidebarView: View {
             // Content based on selected section
             switch selectedSection {
             case .conversations:
-                MessageListView(viewModel: chatViewModel)
+                VStack {
+                    NavigationLink(destination: ConversationListView()) {
+                        Label("Manage All Conversations", systemImage: "folder")
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                    
+                    MessageListView(viewModel: chatViewModel)
+                }
             case .providers:
                 providerSection
             case .settings:
@@ -127,20 +135,34 @@ struct SidebarView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
+                
+                NavigationLink(destination: SettingsView()) {
+                    Label("All Settings", systemImage: "gear")
+                }
             }
             
             Section(header: Text("API Keys")) {
-                NavigationLink(destination: Text("API Key Settings")) {
+                NavigationLink(destination: APIKeyManagementView()) {
                     Label("Manage API Keys", systemImage: "key.fill")
                 }
             }
             
+            Section(header: Text("Conversations")) {
+                NavigationLink(destination: ConversationListView()) {
+                    Label("Manage Conversations", systemImage: "folder")
+                }
+                
+                NavigationLink(destination: ImportExportView()) {
+                    Label("Import/Export", systemImage: "square.and.arrow.up.on.square")
+                }
+            }
+            
             Section(header: Text("About")) {
-                NavigationLink(destination: Text("About Open WebUI")) {
+                NavigationLink(destination: AboutView()) {
                     Label("About", systemImage: "info.circle")
                 }
                 
-                NavigationLink(destination: Text("Help & Support")) {
+                NavigationLink(destination: HelpSupportView()) {
                     Label("Help & Support", systemImage: "questionmark.circle")
                 }
             }

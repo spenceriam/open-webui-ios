@@ -44,7 +44,7 @@ This file outlines the development tasks required to implement the Open WebUI iO
 - [x] Implement markdown rendering
 - [x] Add code syntax highlighting with copy functionality
 - [x] Create parameter adjustment panel (swipe or button)
-- [ ] Implement message organization with folders/tags
+- [x] Implement message organization with folders/tags
 
 ### 6. Model Selection & Management
 - [x] Build model selection interface with provider categories
@@ -59,17 +59,17 @@ This file outlines the development tasks required to implement the Open WebUI iO
 - [x] Add model parameter customization for Ollama
 
 ### 8. Settings & Configuration
-- [ ] Create settings screen with matching organization
-- [ ] Implement API key management UI
-- [ ] Build network configuration panel for Ollama
-- [ ] Add theme options and privacy controls
-- [ ] Implement conversation import/export
+- [x] Create settings screen with matching organization
+- [x] Implement API key management UI
+- [x] Build network configuration panel for Ollama
+- [x] Add theme options and privacy controls
+- [x] Implement conversation import/export
 
 ### 9. Conversation Management
-- [ ] Create conversation list with matching design
-- [ ] Implement folder/tag organization system
-- [ ] Add search functionality
-- [ ] Build conversation options menu (rename, export, delete)
+- [x] Create conversation list with matching design
+- [x] Implement folder/tag organization system
+- [x] Add search functionality
+- [x] Build conversation options menu (rename, export, delete)
 
 ## Phase 3: Adaptive Layout & Polish
 

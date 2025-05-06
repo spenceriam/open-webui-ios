@@ -2,14 +2,14 @@
 
 [![Discord](https://img.shields.io/badge/Discord-Open_WebUI-blue?logo=discord&logoColor=white)](https://discord.gg/5rJgQTnV4s)
 ![iOS](https://img.shields.io/badge/Platform-iOS%2016.0+-lightgrey)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+![Status](https://img.shields.io/badge/Status-Alpha%200.2.0-yellow)
 ![Language](https://img.shields.io/badge/Language-Swift-orange)
 ![Framework](https://img.shields.io/badge/Framework-SwiftUI-blue)
 
 **Open WebUI iOS is a native application that faithfully recreates the Open WebUI experience for mobile devices, providing users with a visually identical and functionally equivalent interface to interact with both local LLM models via Ollama and cloud-based AI services.**
 
 > [!NOTE]  
-> This project is currently in early development. The repository contains the original Open WebUI codebase for reference purposes, with iOS-specific implementation to be developed.
+> This project is now in alpha stage with Phase 2 development complete. Core features including chat interface, model selection, conversation organization, settings, and API integrations are now implemented. The repository contains both the original Open WebUI codebase for reference and the iOS-specific implementation.
 
 ## Key Features of Open WebUI iOS ⭐
 
@@ -33,16 +33,38 @@
 
 ## Implementation Plan 🚀
 
-### Phase 1 (MVP)
+### Phase 1 (MVP) ✅
 - iOS app shell with basic UI matching Open WebUI
-- Ollama connectivity via local network
-- OpenAI API integration
-- OpenRouter API integration
-- Basic chat functionality
-- Conversation history management
-- Essential settings
+- Core Data persistence for conversations
+- Secure API key storage using Keychain
+- Basic UI with light/dark mode support and NavigationSplitView
+- Placeholder API clients for Ollama, OpenAI, and OpenRouter
 
-### Phase 2
+### Phase 2 (Core Features) ✅
+- WebSocket support for streaming responses
+- Complete message bubble component system with markdown and code rendering
+- Model selection interface with provider categories
+- Bonjour/mDNS discovery for finding Ollama servers
+- API key management and validation for cloud providers
+- Conversation organization with folders and tags
+- Comprehensive settings screens
+- Import/export functionality
+- Privacy and security settings
+
+### Phase 3 (In Progress)
+- Device-specific optimizations for iPhone and iPad
+- Dynamic type support and accessibility improvements
+- Layout adaptability for different screen sizes
+- User onboarding flows
+- Testing and performance optimization
+
+### Phase 4 (Future)
+- TestFlight distribution
+- UI/UX refinements based on feedback
+- Accessibility compliance
+- App Store preparation
+
+### Phase 5 (Future Enhancements)
 - Google Gemini API integration
 - Anthropic Claude API integration
 - Document RAG functionality

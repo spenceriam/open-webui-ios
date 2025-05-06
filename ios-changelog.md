@@ -2,7 +2,7 @@
 
 This file tracks changes specific to the iOS version of Open WebUI.
 
-## [Unreleased]
+## [0.2.0] - 2025-05-20
 
 ### Added
 - Implemented WebSocket support for streaming responses
@@ -16,12 +16,34 @@ This file tracks changes specific to the iOS version of Open WebUI.
 - Built detailed server status monitoring and connection system
 - Added API key management and validation for cloud providers
 - Expanded Ollama integration with model listing and pull capabilities
+- Created comprehensive settings screen matching web version organization
+- Built privacy and security settings panel
+- Implemented conversation list with folder/tag organization system
+- Added message tagging and organization capabilities
+- Created import/export functionality for conversations
+- Built conversation search functionality
+- Added support for conversation pinning, archiving, and favorites
+- Implemented theme customization options
 
 ### Changed
 - Enhanced chat interface with streaming indicator
 - Improved API client architecture with robust streaming capabilities
 - Upgraded provider configuration screens with status monitoring
 - Expanded UI component library to match Open WebUI styling
+- Enhanced data models with metadata support for organization
+- Improved folder/tag management for conversations and messages
+- Updated sidebar navigation to include conversation management
+
+### Fixed
+- Fixed issues with WebSocket connection handling
+- Improved error handling for network connections
+- Fixed layout issues in the chat interface
+
+## [Unreleased]
+
+### Added
+
+### Changed
 
 ### Fixed
 
