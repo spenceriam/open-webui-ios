@@ -2,6 +2,51 @@
 
 This file tracks changes specific to the iOS version of Open WebUI.
 
+## [0.4.0] - 2025-05-06
+
+### Added
+- Implemented structured onboarding flow with 3-step process
+- Created provider configuration screens in onboarding
+- Added comprehensive help documentation with HelpSupportView
+- Built network permission request handling with NetworkPermissionHelper
+- Implemented local encryption for conversation history using CryptoKit
+- Added certificate pinning for cloud API connections
+- Created secure network discovery for Ollama servers
+- Implemented comprehensive unit tests for API clients
+- Added data persistence testing with in-memory Core Data testing
+- Built UI tests for all core application flows
+
+### Changed
+- Updated app architecture to conditionally show onboarding on first launch
+- Enhanced KeychainService with better error handling
+- Improved SecureStorageService with military-grade encryption
+- Updated AppState to persist authentication state between sessions
+
+### Fixed
+- Fixed permission handling for local network access
+- Addressed security issues in API key storage
+- Improved error handling for network services
+
+## [0.3.0] - 2025-05-06
+
+### Added
+- Implemented iPhone landscape layout with persistent sidebar for better screen space utilization
+- Built iPad-specific layout with triple-column navigation for optimal tablet experience
+- Created compact layout for smaller devices (iPhone SE/mini) with tab-based navigation
+- Added comprehensive dynamic type support with `DynamicTypeHelper` utility class
+- Implemented intelligent device detection to auto-select appropriate layouts
+- Added responsive layout adaptations for different screen sizes
+- Created documentation for device adaptations in `DEVICE_ADAPTATIONS.md`
+
+### Changed
+- Updated app architecture to dynamically adapt to device type, orientation, and accessibility settings
+- Enhanced main navigation to provide better user experience across different devices
+- Improved UI components with dynamic type scaling for better accessibility
+
+### Fixed
+- Addressed layout issues on smaller iPhone models
+- Fixed spacing and sizing issues when using larger accessibility text sizes
+
 ## [0.2.0] - 2025-05-20
 
 ### Added
@@ -38,26 +83,6 @@ This file tracks changes specific to the iOS version of Open WebUI.
 - Fixed issues with WebSocket connection handling
 - Improved error handling for network connections
 - Fixed layout issues in the chat interface
-
-## [0.3.0] - 2025-05-06
-
-### Added
-- Implemented iPhone landscape layout with persistent sidebar for better screen space utilization
-- Built iPad-specific layout with triple-column navigation for optimal tablet experience
-- Created compact layout for smaller devices (iPhone SE/mini) with tab-based navigation
-- Added comprehensive dynamic type support with `DynamicTypeHelper` utility class
-- Implemented intelligent device detection to auto-select appropriate layouts
-- Added responsive layout adaptations for different screen sizes
-- Created documentation for device adaptations in `DEVICE_ADAPTATIONS.md`
-
-### Changed
-- Updated app architecture to dynamically adapt to device type, orientation, and accessibility settings
-- Enhanced main navigation to provide better user experience across different devices
-- Improved UI components with dynamic type scaling for better accessibility
-
-### Fixed
-- Addressed layout issues on smaller iPhone models
-- Fixed spacing and sizing issues when using larger accessibility text sizes
 
 ## [0.1.0] - 2025-05-06
 

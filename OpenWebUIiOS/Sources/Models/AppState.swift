@@ -94,7 +94,7 @@ class AppState: ObservableObject {
         isInitialized = true
     }
     
-    private func savePreferences() {
+    func savePreferences() {
         let defaults = UserDefaults.standard
         
         // Color scheme

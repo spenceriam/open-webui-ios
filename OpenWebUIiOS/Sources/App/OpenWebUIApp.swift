@@ -3,13 +3,31 @@ import SwiftUI
 @main
 struct OpenWebUIApp: App {
     @StateObject private var appState = AppState()
+    @State private var onboardingCompleted: Bool = false
     
     var body: some Scene {
         WindowGroup {
-            DeviceAwareView()
-                .environmentObject(appState)
-                .preferredColorScheme(appState.colorScheme)
+            Group {
+                if !onboardingCompleted && !isOnboardingCompletedInUserDefaults() {
+                    OnboardingFlowView()
+                        .environmentObject(appState)
+                        .onDisappear {
+                            onboardingCompleted = true
+                        }
+                } else {
+                    DeviceAwareView()
+                        .environmentObject(appState)
+                }
+            }
+            .preferredColorScheme(appState.colorScheme)
+            .onAppear {
+                onboardingCompleted = isOnboardingCompletedInUserDefaults()
+            }
         }
+    }
+    
+    private func isOnboardingCompletedInUserDefaults() -> Bool {
+        return UserDefaults.standard.bool(forKey: "onboarding_completed")
     }
 }
 
