@@ -23,40 +23,40 @@ This file outlines the development tasks required to implement the Open WebUI iO
 - [x] Implement basic Ollama API client (placeholder)
 - [x] Implement basic OpenAI API client (placeholder)
 - [x] Implement basic OpenRouter API client (placeholder)
-- [ ] Expand WebSocket implementation for streaming responses
-- [ ] Implement Bonjour/mDNS for Ollama network discovery
-- [ ] Add request/response interceptors for logging and error handling
+- [x] Expand WebSocket implementation for streaming responses
+- [x] Implement Bonjour/mDNS for Ollama network discovery
+- [x] Add request/response interceptors for logging and error handling
 
 ### 4. UI Foundation & Component Library
 - [x] Create app color themes matching Open WebUI
 - [x] Implement light/dark mode support
 - [x] Create basic UI component foundation
-- [ ] Build complete UI components library
-- [ ] Create typography system matching Open WebUI
+- [x] Build complete UI components library
+- [x] Create typography system matching Open WebUI
 - [x] Implement basic responsive layout system
 
 ## Phase 2: Core Feature Implementation
 
 ### 5. Chat Interface
 - [x] Implement basic chat screen layout (sidebar, main area)
-- [ ] Create message bubble components
-- [ ] Build real-time streaming text rendering
-- [ ] Implement markdown rendering
-- [ ] Add code syntax highlighting with copy functionality
-- [ ] Create parameter adjustment panel (swipe or button)
+- [x] Create message bubble components
+- [x] Build real-time streaming text rendering
+- [x] Implement markdown rendering
+- [x] Add code syntax highlighting with copy functionality
+- [x] Create parameter adjustment panel (swipe or button)
 - [ ] Implement message organization with folders/tags
 
 ### 6. Model Selection & Management
-- [ ] Build model selection interface with provider categories
-- [ ] Create model cards with styling matching web version
-- [ ] Implement model parameter customization UI
-- [ ] Add model information display
+- [x] Build model selection interface with provider categories
+- [x] Create model cards with styling matching web version
+- [x] Implement model parameter customization UI
+- [x] Add model information display
 
 ### 7. Ollama Integration
-- [ ] Implement network discovery of Ollama instances
-- [ ] Create model listing from available Ollama models
-- [ ] Build model pull/download capability
-- [ ] Add model parameter customization for Ollama
+- [x] Implement network discovery of Ollama instances
+- [x] Create model listing from available Ollama models
+- [x] Build model pull/download capability
+- [x] Add model parameter customization for Ollama
 
 ### 8. Settings & Configuration
 - [ ] Create settings screen with matching organization

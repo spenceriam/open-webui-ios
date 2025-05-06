@@ -37,6 +37,27 @@ class ModelService {
         }
     }
     
+    /// Generates a streaming response from the appropriate AI provider
+    func generateStreamingResponse(conversation: Conversation, userMessage: Message) -> AnyPublisher<String, Error> {
+        switch conversation.provider {
+        case .ollama:
+            return ollamaService.generateStreamingChatResponse(
+                modelId: conversation.modelId,
+                messages: conversation.messages
+            )
+        case .openAI:
+            return openAIService.generateStreamingChatResponse(
+                modelId: conversation.modelId,
+                messages: conversation.messages
+            )
+        case .openRouter:
+            return openRouterService.generateStreamingChatResponse(
+                modelId: conversation.modelId,
+                messages: conversation.messages
+            )
+        }
+    }
+    
     /// Fetches available models from a specific provider
     func fetchAvailableModels(provider: AIModel.ModelProvider) -> AnyPublisher<[AIModel], Error> {
         switch provider {

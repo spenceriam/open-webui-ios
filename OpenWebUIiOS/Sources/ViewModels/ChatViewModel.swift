@@ -6,6 +6,7 @@ class ChatViewModel: ObservableObject {
     @Published var currentConversation: Conversation?
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    @Published var isStreaming: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     private let modelService: ModelService
@@ -55,7 +56,7 @@ class ChatViewModel: ObservableObject {
         return conversation
     }
     
-    func sendMessage(_ content: String) {
+    func sendMessage(_ content: String, useStreaming: Bool = true) {
         guard var currentConversation = currentConversation else { return }
         
         let userMessage = Message(
@@ -69,13 +70,74 @@ class ChatViewModel: ObservableObject {
         let assistantMessage = Message(
             content: "",
             role: .assistant,
-            status: .sending
+            status: useStreaming ? .streaming : .sending
         )
         
         currentConversation.messages.append(assistantMessage)
         self.currentConversation = currentConversation
         
-        modelService.generateResponse(conversation: currentConversation, userMessage: userMessage)
+        // If streaming is enabled, use the streaming API
+        if useStreaming {
+            self.isStreaming = true
+            streamMessage(currentConversation, userMessage)
+        } else {
+            // Use the regular, non-streaming API
+            generateMessage(currentConversation, userMessage)
+        }
+    }
+    
+    private func streamMessage(_ conversation: Conversation, _ userMessage: Message) {
+        var streamedContent = ""
+        
+        modelService.generateStreamingResponse(conversation: conversation, userMessage: userMessage)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.isStreaming = false
+                
+                if case .failure(let error) = completion {
+                    self.error = error
+                    
+                    // Update message status to failed
+                    if var conversation = self.currentConversation {
+                        if let index = conversation.messages.lastIndex(where: { $0.role == .assistant && $0.status == .streaming }) {
+                            conversation.messages[index].status = .failed
+                            self.currentConversation = conversation
+                        }
+                    }
+                } else {
+                    // Completion was successful, update the message status to delivered
+                    if var conversation = self.currentConversation {
+                        if let index = conversation.messages.lastIndex(where: { $0.role == .assistant && $0.status == .streaming }) {
+                            conversation.messages[index].status = .delivered
+                            self.currentConversation = conversation
+                            
+                            // Save the updated conversation when streaming completes
+                            self.storageService.saveConversation(conversation)
+                                .sink { _ in } receiveValue: { _ in }
+                                .store(in: &self.cancellables)
+                        }
+                    }
+                }
+            } receiveValue: { [weak self] chunk in
+                guard let self = self else { return }
+                
+                // Append the new chunk to the accumulated content
+                streamedContent += chunk
+                
+                // Update message with streamed content so far
+                if var conversation = self.currentConversation {
+                    if let index = conversation.messages.lastIndex(where: { $0.role == .assistant && $0.status == .streaming }) {
+                        conversation.messages[index].content = streamedContent
+                        self.currentConversation = conversation
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func generateMessage(_ conversation: Conversation, _ userMessage: Message) {
+        modelService.generateResponse(conversation: conversation, userMessage: userMessage)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
