@@ -8,24 +8,56 @@ Open WebUI iOS is a native iOS application project aimed at recreating the Open 
 
 The project uses the original Open WebUI as a reference for design and functionality, but will be built as a native iOS application rather than a web-based interface.
 
+## Current Status
+
+As of version 0.1.0 (2025-05-06), we have completed Phase 1 foundational work:
+- Basic iOS project structure with SwiftUI and MVVM architecture
+- Core Data persistence for conversations with database schema
+- Secure API key storage using Keychain
+- Placeholder API clients for Ollama, OpenAI, and OpenRouter
+- Basic UI with light/dark mode support and NavigationSplitView
+- Welcome screen with provider selection
+- Data models for conversations, messages, and AI models
+
+The key files are located in the `/OpenWebUIiOS` directory with the following structure:
+- `/Sources/App`: Main application entry point
+- `/Sources/Models`: Data models for conversations, messages, and AI models
+- `/Sources/Views`: SwiftUI views and UI components
+- `/Sources/ViewModels`: View models following MVVM pattern
+- `/Sources/Services`: Services for networking, storage, and keychain
+- `/Sources/Utils`: Utility classes and helpers
+
 ## Repository Structure
 
 This repository contains:
 
-1. Original Open WebUI codebase (serving as a reference)
-2. iOS-specific implementation files (to be developed)
+1. Original Open WebUI codebase in `open-webui_docs/` (serving as a reference)
+2. iOS-specific implementation files in `OpenWebUIiOS/`
+3. Project documentation and planning files in the root directory
 
 The original web application is built with:
 - **Frontend**: Svelte/SvelteKit and TypeScript
 - **Backend**: Python-based FastAPI application
 - **Styling**: TailwindCSS
 
-The iOS application will be built with:
+The iOS application is built with:
 - **UI Framework**: SwiftUI
 - **Architecture**: MVVM (Model-View-ViewModel)
 - **Programming Paradigm**: Swift, Combine for reactive programming
 - **Persistence**: Core Data
 - **Networking**: URLSession, WebSockets for streaming responses
+
+## Important Files
+
+- `todo.md`: Detailed task list with current progress
+- `ios-changelog.md`: Version history and changes
+- `open-webui-ios-prd.md`: Product Requirements Document
+- `OpenWebUIiOS/Package.swift`: Swift Package Manager configuration
+- `OpenWebUIiOS/Sources/App/OpenWebUIApp.swift`: Main app entry point
+- `OpenWebUIiOS/Sources/Views/ContentView.swift`: Main UI layout
+- `OpenWebUIiOS/Sources/Services/StorageService.swift`: Core Data implementation
+- `OpenWebUIiOS/Sources/Services/KeychainService.swift`: Secure API key storage
+- `OpenWebUIiOS/Sources/Services/ModelService.swift`: API client architecture
 
 ## Original Web Application Commands
 
@@ -123,24 +155,35 @@ The app will integrate with:
 
 ### Implementation Plan
 
-The development will proceed in phases:
+The development is proceeding in phases:
 
-**Phase 1 (MVP)**
+**Phase 1 (MVP)** - ✅ Basic foundation completed
 - iOS app shell with basic UI
-- Ollama connectivity via local network
-- OpenAI API integration
-- OpenRouter API integration
-- Basic chat functionality
-- Conversation history
-- Essential settings
+- Core Data and storage services
+- Keychain integration for API keys
+- Basic UI components and theme
 
-**Phase 2**
+**Phase 2 (In Progress)**
+- Expand chat interface
+- Build model selection interface
+- Implement Ollama network discovery
+- Create settings and configuration screens
+- Develop conversation management
+
+**Phase 3**
+- Device-specific optimizations
+- User onboarding flows
+- Testing and performance optimization
+- Security and privacy enhancements
+
+**Phase 4**
+- Final refinements
+- TestFlight and App Store preparation
+
+**Phase 5 (Future)**
 - Google and Anthropic API integrations
-- Enhanced UI with advanced features
-- Document RAG functionality
-- Voice input/output
-- Image generation support
-- Multi-model conversations
+- Enhanced capabilities (image generation, voice, RAG)
+- Platform expansion (Vision Pro, Watch)
 
 ## Security Considerations
 
@@ -170,3 +213,9 @@ The iOS implementation should reference:
 - iOS 16.0+ support
 - Universal app (iPhone and iPad)
 - Support for both portrait and landscape orientations
+
+## Development Progress
+
+For detailed progress information, see:
+- `todo.md`: Detailed task list with checked items showing progress
+- `ios-changelog.md`: Version history with detailed changes
