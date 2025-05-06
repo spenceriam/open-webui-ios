@@ -5,40 +5,40 @@ This file outlines the development tasks required to implement the Open WebUI iO
 ## Phase 1: Project Setup & Foundation
 
 ### 1. Project Initialization
-- [ ] Create Xcode project with SwiftUI
-- [ ] Configure project settings (iOS 16.0+, Universal app)
-- [ ] Set up Swift Package Manager
-- [ ] Create basic project architecture (MVVM)
-- [ ] Initialize git workflow
+- [x] Create project structure with SwiftUI
+- [x] Configure project settings (iOS 16.0+, Universal app)
+- [x] Set up Swift Package Manager
+- [x] Create basic project architecture (MVVM)
+- [x] Initialize git workflow
 
 ### 2. Core Data & Storage Module
-- [ ] Design Core Data model for conversation storage
-- [ ] Implement conversation persistence layer
-- [ ] Create secure API key storage using Keychain
-- [ ] Implement user preferences storage
-- [ ] Create model metadata caching system
+- [x] Design Core Data model for conversation storage
+- [x] Implement conversation persistence layer
+- [x] Create secure API key storage using Keychain
+- [x] Implement user preferences storage
+- [x] Create model metadata caching system
 
 ### 3. Network Module
-- [ ] Design protocol-oriented API client architecture
-- [ ] Implement Ollama API client
-- [ ] Implement OpenAI API client
-- [ ] Implement OpenRouter API client
-- [ ] Create WebSocket implementation for streaming responses
+- [x] Design protocol-oriented API client architecture
+- [x] Implement basic Ollama API client (placeholder)
+- [x] Implement basic OpenAI API client (placeholder)
+- [x] Implement basic OpenRouter API client (placeholder)
+- [ ] Expand WebSocket implementation for streaming responses
 - [ ] Implement Bonjour/mDNS for Ollama network discovery
 - [ ] Add request/response interceptors for logging and error handling
 
 ### 4. UI Foundation & Component Library
-- [ ] Create app color themes matching Open WebUI
-- [ ] Implement light/dark mode support
-- [ ] Extract and port Open WebUI design elements to SwiftUI
-- [ ] Build common UI components library
+- [x] Create app color themes matching Open WebUI
+- [x] Implement light/dark mode support
+- [x] Create basic UI component foundation
+- [ ] Build complete UI components library
 - [ ] Create typography system matching Open WebUI
-- [ ] Implement responsive layout system
+- [x] Implement basic responsive layout system
 
 ## Phase 2: Core Feature Implementation
 
 ### 5. Chat Interface
-- [ ] Implement chat screen layout (sidebar, main area, input)
+- [x] Implement basic chat screen layout (sidebar, main area)
 - [ ] Create message bubble components
 - [ ] Build real-time streaming text rendering
 - [ ] Implement markdown rendering
@@ -74,14 +74,14 @@ This file outlines the development tasks required to implement the Open WebUI iO
 ## Phase 3: Adaptive Layout & Polish
 
 ### 10. Device-Specific Optimizations
-- [ ] Implement iPhone portrait layout (collapsible sidebar)
+- [x] Implement basic iPhone layout with NavigationSplitView
 - [ ] Create iPhone landscape layout (optional split view)
 - [ ] Build iPad-specific layout (persistent sidebar)
 - [ ] Add dynamic type support
 - [ ] Ensure layout adaptability for different screen sizes
 
 ### 11. User Onboarding & Help
-- [ ] Design welcome screens explaining key features
+- [x] Design basic welcome screen
 - [ ] Create provider configuration flow
 - [ ] Implement API key entry screens
 - [ ] Add network permission request handling
@@ -96,7 +96,7 @@ This file outlines the development tasks required to implement the Open WebUI iO
 - [ ] Implement background processing for long responses
 
 ### 13. Security & Privacy
-- [ ] Set up HTTPS for all network communications
+- [x] Set up secure storage for API keys
 - [ ] Implement local encryption of conversation history
 - [ ] Add certificate pinning for cloud API connections
 - [ ] Create secure local network discovery
