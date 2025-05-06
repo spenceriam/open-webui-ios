@@ -39,15 +39,25 @@ This file tracks changes specific to the iOS version of Open WebUI.
 - Improved error handling for network connections
 - Fixed layout issues in the chat interface
 
-## [Unreleased]
+## [0.3.0] - 2025-05-06
 
 ### Added
+- Implemented iPhone landscape layout with persistent sidebar for better screen space utilization
+- Built iPad-specific layout with triple-column navigation for optimal tablet experience
+- Created compact layout for smaller devices (iPhone SE/mini) with tab-based navigation
+- Added comprehensive dynamic type support with `DynamicTypeHelper` utility class
+- Implemented intelligent device detection to auto-select appropriate layouts
+- Added responsive layout adaptations for different screen sizes
+- Created documentation for device adaptations in `DEVICE_ADAPTATIONS.md`
 
 ### Changed
+- Updated app architecture to dynamically adapt to device type, orientation, and accessibility settings
+- Enhanced main navigation to provide better user experience across different devices
+- Improved UI components with dynamic type scaling for better accessibility
 
 ### Fixed
-
-### Removed
+- Addressed layout issues on smaller iPhone models
+- Fixed spacing and sizing issues when using larger accessibility text sizes
 
 ## [0.1.0] - 2025-05-06
 

@@ -75,10 +75,10 @@ This file outlines the development tasks required to implement the Open WebUI iO
 
 ### 10. Device-Specific Optimizations
 - [x] Implement basic iPhone layout with NavigationSplitView
-- [ ] Create iPhone landscape layout (optional split view)
-- [ ] Build iPad-specific layout (persistent sidebar)
-- [ ] Add dynamic type support
-- [ ] Ensure layout adaptability for different screen sizes
+- [x] Create iPhone landscape layout (optional split view)
+- [x] Build iPad-specific layout (persistent sidebar)
+- [x] Add dynamic type support
+- [x] Ensure layout adaptability for different screen sizes
 
 ### 11. User Onboarding & Help
 - [x] Design basic welcome screen

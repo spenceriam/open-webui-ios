@@ -39,3 +39,14 @@ This directory contains the source code for the native iOS implementation of Ope
 - Real-time streaming responses
 - Secure API key storage
 - Conversation history management
+
+## Device Adaptations
+
+The application is designed to work seamlessly across all iOS devices through specialized layouts:
+
+- **Standard iPhone**: Portrait layout with collapsible sidebar
+- **iPhone Landscape**: Optimized layout with persistent sidebar
+- **iPad**: Triple-column layout with persistent navigation
+- **Compact Devices** (iPhone SE, mini): Tab-based navigation for smaller screens
+
+Read more in [DEVICE_ADAPTATIONS.md](DEVICE_ADAPTATIONS.md).
