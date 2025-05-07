@@ -1,9 +1,19 @@
 import SwiftUI
+import UserNotifications
 
 @main
 struct OpenWebUIApp: App {
     @StateObject private var appState = AppState()
     @State private var onboardingCompleted: Bool = false
+    @Environment(\.scenePhase) private var scenePhase
+    
+    // Memory management
+    private let memoryMonitor = MemoryMonitor.shared
+    
+    init() {
+        // Register for notifications early
+        setupNotifications()
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -23,7 +33,72 @@ struct OpenWebUIApp: App {
             .onAppear {
                 onboardingCompleted = isOnboardingCompletedInUserDefaults()
             }
+            .onChange(of: scenePhase) { newPhase in
+                handleScenePhaseChange(newPhase)
+            }
         }
+    }
+    
+    private func setupNotifications() {
+        // Request authorization for user notifications
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                print("Notification permissions granted")
+            } else if let error = error {
+                print("Notification permission error: \(error.localizedDescription)")
+            }
+        }
+        
+        // Make sure the background task service has permissions too
+        BackgroundTaskService.shared.requestNotificationPermission()
+        
+        print("App initialized with memory usage: \(memoryMonitor.formattedMemoryUsage())")
+    }
+    
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            print("App became active - Memory usage: \(memoryMonitor.formattedMemoryUsage())")
+            // Resume normal operations and check for interrupted messages
+            NotificationCenter.default.post(
+                name: UIApplication.willEnterForegroundNotification,
+                object: nil
+            )
+            
+        case .inactive:
+            print("App became inactive - Memory usage: \(memoryMonitor.formattedMemoryUsage())")
+            // Prepare for possible background
+            
+        case .background:
+            print("App entered background - Memory usage: \(memoryMonitor.formattedMemoryUsage())")
+            // Notify about background state for message handling
+            NotificationCenter.default.post(
+                name: UIApplication.didEnterBackgroundNotification,
+                object: nil
+            )
+            
+            // Optimize memory usage
+            optimizeForBackground()
+            
+            // Schedule background tasks for message processing if needed
+            BackgroundTaskService.shared.scheduleBackgroundProcessing()
+            BackgroundTaskService.shared.scheduleBackgroundFetch()
+            
+        @unknown default:
+            break
+        }
+    }
+    
+    private func optimizeForBackground() {
+        // Clear memory caches
+        ImageCache.shared.clearMemoryCache()
+        
+        // Post notification for view models to reduce memory
+        NotificationCenter.default.post(
+            name: NSNotification.Name("ReduceMemoryPressure"),
+            object: nil
+        )
     }
     
     private func isOnboardingCompletedInUserDefaults() -> Bool {

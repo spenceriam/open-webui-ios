@@ -2,6 +2,31 @@
 
 This file tracks changes specific to the iOS version of Open WebUI.
 
+## [0.5.0] - 2025-05-06
+
+### Added
+- Implemented memory optimization with adaptive caching and pagination
+- Added `ImageCache` utility for efficient image handling
+- Created `MemoryMonitor` for tracking memory pressure
+- Implemented conversation and message pagination in StorageService
+- Added battery optimization with `PowerMonitor` utility
+- Enhanced WebSocketService with battery-efficient operation
+- Implemented background processing for long responses
+- Added message recovery system for interrupted responses
+- Created notification integration for background operations
+- Added UI components for resuming interrupted messages
+- Implemented partial message status tracking
+
+### Changed
+- Updated ChatViewModel with memory pressure handling
+- Enhanced app lifecycle management for background states
+- Improved message streaming with battery awareness
+- Updated storage operations with memory-efficient patterns
+
+### Fixed
+- Resolved memory leaks in conversation handling
+- Fixed issues with message interruption during background transitions
+
 ## [0.4.0] - 2025-05-06
 
 ### Added

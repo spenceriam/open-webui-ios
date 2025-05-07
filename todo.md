@@ -91,9 +91,9 @@ This file outlines the development tasks required to implement the Open WebUI iO
 - [x] Write unit tests for API clients
 - [x] Create tests for data persistence
 - [x] Implement UI tests for core flows
-- [ ] Optimize memory usage (<200MB baseline)
-- [ ] Add battery optimization
-- [ ] Implement background processing for long responses
+- [x] Optimize memory usage (<200MB baseline)
+- [x] Add battery optimization
+- [x] Implement background processing for long responses
 
 ### 13. Security & Privacy
 - [x] Set up secure storage for API keys

@@ -14,6 +14,13 @@ struct ChatView: View {
             // Chat header
             chatHeader
             
+            // Recovery banner for interrupted messages
+            if viewModel.offerResumption {
+                MessageRecoveryBanner {
+                    viewModel.resumeInterruptedMessages()
+                }
+            }
+            
             // Messages list
             messagesView
             

@@ -39,6 +39,7 @@ struct Message: Identifiable, Codable {
         case delivered
         case failed
         case streaming
+        case partial  // Indicates a message that was interrupted during generation
     }
     
     // MARK: - Helper Properties

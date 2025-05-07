@@ -119,6 +119,15 @@ struct MessageBubbleView: View {
                 Text("Failed to generate response")
                     .font(.caption)
                     .foregroundColor(.red)
+                
+            case .partial:
+                HStack(spacing: 4) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.caption)
+                    Text("Interrupted")
+                        .font(.caption)
+                        .foregroundColor(.yellow)
+                }
             }
         }
     }

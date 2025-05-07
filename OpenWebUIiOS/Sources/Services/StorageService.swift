@@ -187,6 +187,11 @@ class StorageService {
     
     /// Fetches all conversations
     func fetchConversations() -> AnyPublisher<[Conversation], Error> {
+        return fetchPaginatedConversations(page: 0, pageSize: 100)
+    }
+    
+    /// Fetches conversations with pagination to reduce memory usage
+    func fetchPaginatedConversations(page: Int, pageSize: Int = 20) -> AnyPublisher<[Conversation], Error> {
         Future<[Conversation], Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(StorageError.serviceUnavailable))
@@ -196,10 +201,21 @@ class StorageService {
             let context = self.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<ConversationEntity>(entityName: "ConversationEntity")
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
+            fetchRequest.fetchLimit = pageSize
+            fetchRequest.fetchOffset = page * pageSize
+            
+            // Monitor memory usage during this operation
+            let memoryBefore = MemoryMonitor.shared.currentMemoryUsageMB
             
             do {
                 let entities = try context.fetch(fetchRequest)
                 let conversations = entities.map { self.mapToConversation($0) }
+                
+                // Log memory impact for debugging
+                let memoryAfter = MemoryMonitor.shared.currentMemoryUsageMB
+                let memoryImpact = memoryAfter - memoryBefore
+                print("Memory impact of loading \(entities.count) conversations: \(String(format: "%.2f", memoryImpact)) MB")
+                
                 promise(.success(conversations))
             } catch {
                 promise(.failure(error))
@@ -210,6 +226,11 @@ class StorageService {
     
     /// Fetches a specific conversation
     func fetchConversation(_ id: UUID) -> AnyPublisher<Conversation?, Error> {
+        return fetchConversation(id, messageLimit: 50)
+    }
+    
+    /// Fetches a specific conversation with limited message loading
+    func fetchConversation(_ id: UUID, messageLimit: Int? = nil) -> AnyPublisher<Conversation?, Error> {
         Future<Conversation?, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(StorageError.serviceUnavailable))
@@ -223,11 +244,64 @@ class StorageService {
             do {
                 let entities = try context.fetch(fetchRequest)
                 if let entity = entities.first {
-                    let conversation = self.mapToConversation(entity)
-                    promise(.success(conversation))
+                    if let messageLimit = messageLimit {
+                        // Limited message fetch for memory efficiency
+                        let conversation = self.mapToConversationWithLimitedMessages(entity, messageLimit: messageLimit)
+                        promise(.success(conversation))
+                    } else {
+                        // Full message load
+                        let conversation = self.mapToConversation(entity)
+                        promise(.success(conversation))
+                    }
                 } else {
                     promise(.success(nil))
                 }
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    /// Fetches paginated messages for a specific conversation
+    func fetchPaginatedMessages(conversationId: UUID, page: Int, pageSize: Int = 50) -> AnyPublisher<[Message], Error> {
+        Future<[Message], Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(StorageError.serviceUnavailable))
+                return
+            }
+            
+            let context = self.persistentContainer.viewContext
+            
+            // First fetch the conversation entity
+            let convFetch = NSFetchRequest<ConversationEntity>(entityName: "ConversationEntity")
+            convFetch.predicate = NSPredicate(format: "id == %@", conversationId as CVarArg)
+            
+            do {
+                guard let conversation = try context.fetch(convFetch).first else {
+                    promise(.failure(StorageError.entityNotFound))
+                    return
+                }
+                
+                // Then fetch only the messages we need with pagination
+                let messageFetch = NSFetchRequest<MessageEntity>(entityName: "MessageEntity")
+                messageFetch.predicate = NSPredicate(format: "conversation == %@", conversation)
+                messageFetch.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+                messageFetch.fetchLimit = pageSize
+                messageFetch.fetchOffset = page * pageSize
+                
+                // Monitor memory usage during this operation
+                let memoryBefore = MemoryMonitor.shared.currentMemoryUsageMB
+                
+                let messageEntities = try context.fetch(messageFetch)
+                let messages = messageEntities.map { self.mapToMessage($0) }
+                
+                // Log memory impact for debugging
+                let memoryAfter = MemoryMonitor.shared.currentMemoryUsageMB
+                let memoryImpact = memoryAfter - memoryBefore
+                print("Memory impact of loading \(messageEntities.count) messages: \(String(format: "%.2f", memoryImpact)) MB")
+                
+                promise(.success(messages))
             } catch {
                 promise(.failure(error))
             }
@@ -456,6 +530,47 @@ class StorageService {
             updatedAt: entity.updatedAt,
             folderIds: entity.folderIds as? [UUID],
             tags: entity.tags as? [String]
+        )
+    }
+    
+    private func mapToConversationWithLimitedMessages(_ entity: ConversationEntity, messageLimit: Int) -> Conversation {
+        // Get all message entities and sort by timestamp
+        let allMessages = (entity.messages?.allObjects as? [MessageEntity] ?? [])
+            .sorted { $0.timestamp < $1.timestamp }
+        
+        // Only take the most recent messages up to the limit
+        // For very large conversations, this dramatically reduces memory usage
+        let limitedMessages: [MessageEntity]
+        if allMessages.count > messageLimit {
+            // Always include the first message for context
+            let firstMessage = [allMessages.first].compactMap { $0 }
+            
+            // Then get the most recent messages up to (limit - 1)
+            let recentMessages = Array(allMessages.suffix(messageLimit - 1))
+            
+            // Combine and sort
+            limitedMessages = (firstMessage + recentMessages).sorted { $0.timestamp < $1.timestamp }
+            
+            print("Limiting conversation from \(allMessages.count) to \(limitedMessages.count) messages to reduce memory usage")
+        } else {
+            limitedMessages = allMessages
+        }
+        
+        // Map to domain model
+        let messages = limitedMessages.map { self.mapToMessage($0) }
+        
+        return Conversation(
+            id: entity.id,
+            title: entity.title,
+            messages: messages,
+            modelId: entity.modelId,
+            provider: Conversation.Provider(rawValue: entity.provider) ?? .openAI,
+            createdAt: entity.createdAt,
+            updatedAt: entity.updatedAt,
+            folderIds: entity.folderIds as? [UUID],
+            tags: entity.tags as? [String],
+            // Add a flag to indicate this conversation has limited messages loaded
+            metadata: allMessages.count > messageLimit ? ["hasMoreMessages": "true", "totalMessages": "\(allMessages.count)"] : nil
         )
     }
     
