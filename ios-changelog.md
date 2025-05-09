@@ -2,6 +2,31 @@
 
 This file tracks changes specific to the iOS version of Open WebUI.
 
+## [0.6.0] - 2025-05-09
+
+### Added
+- Created comprehensive modernization plan for codebase
+- Implemented actor-based `OllamaServiceActor` to replace Combine-based implementation
+- Added `DiscoveryServiceActor` with AsyncStream for network discovery
+- Created `ChatFeature` using The Composable Architecture (TCA) principles
+- Implemented modern dependency injection system with protocol-based interfaces
+- Added support for Swift's structured concurrency with async/await
+- Created typed error handling for better error propagation
+
+### Changed
+- Migrated from Combine to Swift Concurrency for network requests
+- Replaced publishers with AsyncThrowingStream for streaming responses
+- Enhanced thread safety using Swift Actor model
+- Improved cancellation support with structured task management
+- Adopted @Reducer and @ObservableState macros for state management
+- Updated UI components with modern SwiftUI bindings
+
+### Improved
+- Better performance through optimized task prioritization
+- Enhanced testability with protocol-based dependencies
+- Improved power management with actor-based services
+- Better organization of view components using composition
+
 ## [0.5.0] - 2025-05-06
 
 ### Added
