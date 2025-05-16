@@ -86,12 +86,9 @@ final class PowerMonitor {
     }
     
     private func publishPowerStatus(_ trigger: String) {
-        print("⚡️ Power status (\(trigger)): Level: \(Int(batteryLevel * 100))%, " +
-              "State: \(batteryStateString), " +
-              "Low Power: \(isLowPowerMode), " +
-              "Background: \(isInBackground)")
+        print("Power status [\(trigger)] - State: \(batteryStateString), Low Power: \(isLowPowerMode), Background: \(isInBackground)")
     }
-    
+
     /// Get a descriptive string of the battery state
     private var batteryStateString: String {
         switch batteryState {

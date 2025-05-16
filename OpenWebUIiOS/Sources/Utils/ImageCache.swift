@@ -77,7 +77,7 @@ final class ImageCache {
     /// Clear memory cache in response to system memory warnings
     @objc private func handleMemoryWarning() {
         memoryCache.removeAllObjects()
-        print("⚠️ Memory warning received: Image cache cleared")
+        print("Memory warning received - clearing image cache")
     }
     
     /// Clear memory cache manually

@@ -467,7 +467,7 @@ class StreamingService {
     private func fallbackToNonStreaming(url: URL, requestData: Data) -> AnyPublisher<String, Error> {
         // This would normally implement a non-streaming API call
         // For now, we'll just use the streaming API but with larger buffer
-        print("⚠️ Falling back to non-streaming mode to save battery")
+        print("Fallback to non-streaming mode")
         
         // Set a larger buffer threshold
         let originalThreshold = bufferThreshold

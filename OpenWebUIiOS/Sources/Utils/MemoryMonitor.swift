@@ -64,8 +64,7 @@ final class MemoryMonitor {
         ImageCache.shared.clearMemoryCache()
         URLCache.shared.removeAllCachedResponses()
         
-        print("⚠️ Memory warning received - caches cleared")
-        
+        print("Memory warning received")
         // Perform additional memory reduction
         reduceMemoryPressure()
         
