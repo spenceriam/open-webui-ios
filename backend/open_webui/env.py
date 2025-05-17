@@ -16,13 +16,9 @@ from open_webui.constants import ERROR_MESSAGES
 ####################################
 
 OPEN_WEBUI_DIR = Path(__file__).parent  # the path containing this file
-print(OPEN_WEBUI_DIR)
 
 BACKEND_DIR = OPEN_WEBUI_DIR.parent  # the path containing this file
 BASE_DIR = BACKEND_DIR.parent  # the path containing the backend/
-
-print(BACKEND_DIR)
-print(BASE_DIR)
 
 try:
     from dotenv import find_dotenv, load_dotenv
@@ -73,6 +69,10 @@ else:
 
 log = logging.getLogger(__name__)
 log.info(f"GLOBAL_LOG_LEVEL: {GLOBAL_LOG_LEVEL}")
+
+log.info("OPEN_WEBUI_DIR: %s", OPEN_WEBUI_DIR)
+log.info("BACKEND_DIR: %s", BACKEND_DIR)
+log.info("BASE_DIR: %s", BASE_DIR)
 
 if "cuda_error" in locals():
     log.exception(cuda_error)
