@@ -64,7 +64,5 @@
         <string>com.openwebui.ios.messageProcessing</string>
         <string>com.openwebui.ios.messageCompletion</string>
     </array>
-    <key>NSUserNotificationsUsageDescription</key>
-    <string>Open WebUI would like to send you notifications when your AI responses are completed in the background.</string>
 </dict>
 </plist>
