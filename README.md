@@ -127,6 +127,13 @@ Open WebUI iOS places a strong emphasis on security and privacy:
 - Swift 5.7+
 - Optional: Ollama instance on local network
 
+## Running in Xcode 🛠
+
+1. Execute `scripts/generate_xcode_project.sh` from the repository root. This
+   uses Swift Package Manager to create `OpenWebUIiOS.xcodeproj`.
+2. Open the generated project in Xcode.
+3. Choose a simulator or connected device and press **Run**.
+
 ## References 📚
 
 This project uses the original [Open WebUI](https://github.com/open-webui/open-webui) as a reference for design and functionality. The original Open WebUI documentation can be found in the [open-webui_docs](./open-webui_docs/) directory.
