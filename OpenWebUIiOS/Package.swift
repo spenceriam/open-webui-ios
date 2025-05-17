@@ -1,4 +1,4 @@
-// swift-tools-version:5.8
+// swift-tools-version:5.9
 import PackageDescription
 
 let package = Package(
@@ -7,7 +7,7 @@ let package = Package(
         .iOS(.v16)
     ],
     products: [
-        .library(
+        .executable(
             name: "OpenWebUIiOS",
             targets: ["OpenWebUIiOS"]),
     ],
@@ -17,15 +17,18 @@ let package = Package(
         // Dependencies for syntax highlighting
         .package(url: "https://github.com/raspu/Highlightr", from: "2.1.2"),
         // Dependencies for WebSockets
-        .package(url: "https://github.com/daltoniam/Starscream", from: "4.0.0")
+        .package(url: "https://github.com/daltoniam/Starscream", from: "4.0.0"),
+        // Dependencies for application architecture
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.1.0")
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "OpenWebUIiOS",
             dependencies: [
                 "Down",
                 "Highlightr",
-                "Starscream"
+                "Starscream",
+                "ComposableArchitecture"
             ],
             path: "Sources"),
         .testTarget(
