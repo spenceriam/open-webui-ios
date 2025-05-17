@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import OSLog
+import ComposableArchitecture
 
 /// Chat feature implemented using TCA (The Composable Architecture) principles
 @Reducer
